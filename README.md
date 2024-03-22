@@ -28,7 +28,7 @@
 
 ### Repos
 
-- [Nest Car Dealership](https://github.com/Klerith/nest-car-dealership/blob/fin-seccion-3/src/cars/cars.controller.ts)
+- [Nest Example](https://github.com/Klerith/nest-pokedex)
 
 ## Description
 
