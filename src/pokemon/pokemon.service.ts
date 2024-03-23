@@ -10,6 +10,7 @@ import { Pokemon } from './entities/pokemon.entity'
 
 import { CreatePokemonDto } from './dto/create-pokemon.dto'
 import { UpdatePokemonDto } from './dto/update-pokemon.dto'
+import { PaginationDTO } from '../common/dto/pagination.dto'
 
 @Injectable()
 export class PokemonService {
@@ -28,10 +29,15 @@ export class PokemonService {
     }
   }
 
-  async findAll() {
+  async findAll(pagination: PaginationDTO) {
     try {
-      const pokemons = await this.pokemonModel.find()
-      return pokemons
+      const { limit = 10, offset = 0 } = pagination
+      return await this.pokemonModel
+        .find()
+        .limit(limit)
+        .skip(offset)
+        .sort({ no: 1 })
+        .select('-__v')
     } catch (error) {
       this.handleExceptions(error)
     }
@@ -92,6 +98,15 @@ export class PokemonService {
     try {
       const pokemonsInserted = this.pokemonModel.insertMany(pokemons)
       return pokemonsInserted
+    } catch (error) {
+      this.handleExceptions(error)
+    }
+  }
+
+  async count() {
+    try {
+      const count = await this.pokemonModel.countDocuments()
+      return count
     } catch (error) {
       this.handleExceptions(error)
     }

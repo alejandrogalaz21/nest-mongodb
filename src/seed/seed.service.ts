@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { PokeResponse } from './interfaces'
 import { PokemonService } from 'src/pokemon/pokemon.service'
 import { AxiosAdapter } from 'src/common/adapters/axios.adapter'
+import { InternalServerErrorException } from '@nestjs/common'
 
 @Injectable()
 export class SeedService {
@@ -12,9 +13,9 @@ export class SeedService {
 
   async executeSeed() {
     try {
-      const { length } = await this.pokemonService.findAll()
+      const count = await this.pokemonService.count()
 
-      if (!length) {
+      if (!count) {
         const data = await this.http.get<PokeResponse>(
           'https://pokeapi.co/api/v2/pokemon?limit=20'
         )
@@ -29,9 +30,11 @@ export class SeedService {
         console.log(docs)
         return 'Seed executed'
       }
-      return `No need to executed, ${length} Pokemons existing in the db`
+      return `No need to executed, ${count} Pokemons existing in the db`
     } catch (error) {
-      console.log(error)
+      throw new InternalServerErrorException(
+        'Ups Something when executed the seed'
+      )
     }
   }
 }
