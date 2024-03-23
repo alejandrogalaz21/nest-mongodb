@@ -88,6 +88,15 @@ export class PokemonService {
     return
   }
 
+  async insertMany(pokemons: CreatePokemonDto[]) {
+    try {
+      const pokemonsInserted = this.pokemonModel.insertMany(pokemons)
+      return pokemonsInserted
+    } catch (error) {
+      this.handleExceptions(error)
+    }
+  }
+
   private handleExceptions(error: any) {
     if (error.code === 11000) {
       throw new BadRequestException(
