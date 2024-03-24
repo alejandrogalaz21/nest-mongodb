@@ -12,6 +12,7 @@ import { SeedModule } from './seed/seed.module'
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, load: [EnvConfiguration] }),
+    // render static content
     ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'public') }),
     MongooseModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
