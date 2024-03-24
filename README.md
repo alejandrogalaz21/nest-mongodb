@@ -48,26 +48,19 @@ $ yarn install
 2. Ejecutar
 
 ```bash
-yarn install
+$ yarn install
 ```
 
 3. Tener Nest CLI instalado
 
 ```bash
-npm i -g @nestjs/cli
+$ npm i -g @nestjs/cli
 ```
 
 4. Levantar la base de datos
 
 ```bash
-docker-compose up -d
-```
-
-## Running the app
-
-```bash
-# watch mode
-$ yarn run start:dev
+$ docker-compose.db.yml up -d
 ```
 
 ## Stack usado
