@@ -1,12 +1,27 @@
-version: '3.8'
+version: '3'
+
 services:
+  pokedexapp:
+    depends_on:
+      - mongo
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nest-pokemon-api-dev
+    container_name: nest_pokemon_api_dev
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      DB_HOST: mongo
+      DB_PORT: 27017
+      PORT: 3000
+    volumes:
+      - ./:/usr/src/app
+
   mongo:
     image: mongo:5.0
-    container_name: mongo_db
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
-      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
-      - MONGODB_DATABASE=nest
+    container_name: mongo_db_pokemon_dev
     restart: unless-stopped
     ports:
       - 27017:27017
@@ -15,18 +30,16 @@ services:
 
   mongo-express:
     image: mongo-express
-    container_name: mongo_express
+    container_name: mongo_express_pokemon_dev
     environment:
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=${DB_USER}
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=${DB_PASSWORD}
-      - ME_CONFIG_MONGODB_URL=mongodb://${DB_USER}:${DB_PASSWORD}@mongo:27017/?authSource=admin
+      - ME_CONFIG_MONGODB_URL=mongodb://mongo:27017
       - ME_CONFIG_BASICAUTH_USERNAME=admin
       - ME_CONFIG_BASICAUTH_PASSWORD=admin
     links:
       - mongo
     restart: unless-stopped
     ports:
-      - 0:8081
+      - 8099:8081
 
 volumes:
   mongodb_data:

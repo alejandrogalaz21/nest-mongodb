@@ -3,7 +3,7 @@ version: '3'
 services:
   pokedexapp:
     depends_on:
-      - db
+      - mongo
     build:
       context: .
       dockerfile: Dockerfile
@@ -14,11 +14,11 @@ services:
       - ${PORT}:${PORT}
     environment:
       DB_NAME:
-      DB_HOST:
-      DB_PORT:
-      DB_USER:
-      DB_PASSWORD:
-      PORT:
+      DB_HOST: mongo
+      DB_PORT: 27017
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      PORT: ${PORT}
     #DEFAULT_LIMIT: ${DEFAULT_LIMIT}
     # volumes:
     #   - ./:/var/www/pokedex
