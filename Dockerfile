@@ -1,4 +1,4 @@
-FROM node:lts as builder
+FROM node:lts As development
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -12,7 +12,7 @@ COPY . .
 
 RUN yarn build
 
-FROM node:lts-slim
+FROM node:lts-slim as production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
@@ -27,6 +27,8 @@ COPY package.json yarn.lock ./
 
 RUN yarn install --production --frozen-lockfile
 
-COPY --from=builder /usr/src/app/dist ./dist
+COPY . .
+
+COPY --from=development /usr/src/app/dist ./dist
 
 CMD [ "node", "dist/main.js" ]

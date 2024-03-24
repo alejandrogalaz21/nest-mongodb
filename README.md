@@ -29,6 +29,7 @@
 ### Repos
 
 - [Nest Example](https://github.com/Klerith/nest-pokedex)
+- [Docker Nest](https://blog.logrocket.com/containerized-development-nestjs-docker/)
 
 ## Description
 
