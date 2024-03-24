@@ -11,7 +11,7 @@ export const EnvConfiguration = () => {
   const db_user = process.env.DB_USER
   const db_password = process.env.DB_PASSWORD
 
-  const db_url = `mongodb://${db_host}:${db_port}`
+  const db_url = `mongodb://${db_host}:${db_port}/${db_name}`
   const db_auth_url = `mongodb://${db_user}:${db_password}@${db_host}:${db_port}/${db_name}?authSource=admin`
 
   return {
