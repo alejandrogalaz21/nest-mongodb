@@ -27,7 +27,5 @@ import { SeedModule } from './seed/seed.module'
   providers: []
 })
 export class AppModule {
-  constructor(private configService: ConfigService) {
-    console.log(this.configService.get<string>('db.url'))
-  }
+  constructor(private configService: ConfigService) {}
 }

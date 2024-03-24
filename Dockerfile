@@ -14,7 +14,9 @@ RUN yarn build
 
 FROM node:lts-slim
 
-ENV NODE_ENV production
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
 USER node
 
 # Create app directory

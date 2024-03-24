@@ -13,11 +13,14 @@ services:
     ports:
       - 3000:3000
     environment:
+      NODE_ENV: dev
       DB_HOST: mongo
       DB_PORT: 27017
       PORT: 3000
+    command: yarn start:dev
     volumes:
-      - ./:/usr/src/app
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
 
   mongo:
     image: mongo:5.0
